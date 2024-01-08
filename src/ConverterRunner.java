@@ -19,15 +19,48 @@ class ConverterRunner {
         System.out.print("Enter your number: ");
         String number = s.nextLine();
         int n = Integer.parseInt(number);
+        boolean correct = checkInput(n,base);
+        while(!correct)
+        {
+            System.out.print("Please enter a valid number: ");
+            number = s.nextLine();
+            n = Integer.parseInt(number);
+            correct = checkInput(n,base);
+        }
 
         s.close();
 
         NumberConverter nc = new NumberConverter(n, base);
         int[] digits = nc.getDigits();
-        System.out.println("\n\nDigit array: " + Arrays.toString(digits));
-        System.out.println("Number: " + nc.displayOriginalNumber());
-        System.out.println(nc.convertArray(nc.convertToBinary(),2));
-        System.out.println(nc.convertArray(nc.convertToOctal(),8));
+        //System.out.println("\n\nDigit array: " + Arrays.toString(digits));
+        //System.out.println("Number: " + nc.displayOriginalNumber());
+        System.out.println();
+        if(base == 10)
+        {
+            System.out.println("Binary Number: " + nc.convertArray(nc.convertToBinary(),2));
+            System.out.println("Octal Number: " +nc.convertArray(nc.convertToOctal(),8));
+        }
+        else if(base == 8)
+        {
+            System.out.println("Binary Number: " +nc.convertArray(nc.convertToBinary(),2));
+            System.out.println("Decimal Number: " +nc.convertArray(nc.convertToDecimal(),10));
+        }
+        else if ( base == 2)
+        {
+            System.out.println("Octal Number: " +nc.convertArray(nc.convertToOctal(),8));
+            System.out.println("Decimal Number: " +nc.convertArray(nc.convertToDecimal(),10));
+        }
+    }
+
+    public static boolean checkInput(int value,int base)
+    {
+        String sValue = Integer.toString(value);
+        for(int i = 0;i<sValue.length();i++)
+        {
+            int letterValue = Integer.parseInt(sValue.substring(i,i+1));
+            if(letterValue>(base-1)) return false;
+        }
+        return true;
     }
 }
 

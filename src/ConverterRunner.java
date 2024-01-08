@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
-
 class ConverterRunner {
     public static void main(String[] args) {
         System.out.println("Welcome to the Number Converter!");
@@ -31,7 +29,7 @@ class ConverterRunner {
         s.close();
 
         NumberConverter nc = new NumberConverter(n, base);
-        int[] digits = nc.getDigits();
+        //int[] digits = nc.getDigits();
         //System.out.println("\n\nDigit array: " + Arrays.toString(digits));
         //System.out.println("Number: " + nc.displayOriginalNumber());
         System.out.println();

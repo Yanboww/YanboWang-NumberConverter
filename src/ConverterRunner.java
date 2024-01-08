@@ -43,7 +43,7 @@ class ConverterRunner {
             System.out.print("Please enter a base number between 1 - 64 to convert to: ");
             String sConvertBase = s.nextLine();
             convertBase = Integer.parseInt(sConvertBase);
-            while(convertBase>63 || convertBase<1 )
+            while(convertBase>64 || convertBase<1 )
             {
                 System.out.print("Please enter a valid base number between 1 - 64 to convert to: ");
                 sConvertBase = s.nextLine();

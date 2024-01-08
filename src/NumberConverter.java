@@ -2,9 +2,10 @@ import java.util.HashMap;
 public class NumberConverter {
     int[] digits;
     int base;
-    private HashMap digitDict;
+    private HashMap<String,Integer> key = new HashMap<>();
+    private HashMap<Integer,String> reverseKey = new HashMap<>();
 
-    public NumberConverter(int number, int base) {
+    public NumberConverter(int number, int base,HashMap<String,Integer> digi, HashMap<Integer, String> reverseDigi) {
         String numberAsString = Integer.toString(number);
         digits = new int[numberAsString.length()];
         for (int i = 0; i < numberAsString.length(); i++) {
@@ -13,7 +14,22 @@ public class NumberConverter {
             digits[i] = d;
         }
         this.base = base;
+        key = digi;
+        reverseKey = reverseDigi;
     }
+
+    public NumberConverter(String[] number, int base, HashMap<String,Integer> digi, HashMap<Integer, String> reverseDigi)
+    {
+        digits = new int[number.length];
+        for(int i = 0; i<digits.length;i++)
+        {
+            digits[i] = digi.get(number[i]);
+        }
+        this.base = base;
+        key = digi;
+        reverseKey = reverseDigi;
+    }
+
 
     public String displayOriginalNumber() {
         String o = "";
@@ -71,6 +87,19 @@ public class NumberConverter {
         return octalValue;
     }
 
+    public int[] convertToAbove(int base)
+    {
+        int decimal = convertArrayToDecimal(convertToDecimal());
+        int[] hexValue = new int[digits.length*4];
+        for(int i = hexValue.length-1;i>=0;i--)
+        {
+            hexValue[i] = decimal%base;
+            decimal/=base;
+        }
+        return hexValue;
+    }
+
+
     public int convertArrayToDecimal(int[] array)
     {
         int total = 0;
@@ -107,5 +136,26 @@ public class NumberConverter {
             return returnValue;
         }
     }
+    public String convertComplexArray(int[] array)
+    {
+        String num = "";
+        boolean start = false;
+        for(int value : array)
+        {
+            if(start){
+                num+= reverseKey.get(value);
+            }
+            else{
+                if(value!=0)
+                {
+                    start = true;
+                    num+=reverseKey.get(value);
+                }
+
+            }
+        }
+        return num;
+    }
+
 }
 
